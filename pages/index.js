@@ -24,7 +24,7 @@ export default function Home({ homes = [] }) {
         Top-rated places to stay
       </h1>
       <p className="he">
-        Explore some of the best places in the world
+        Explore some of the best places in the world man
       </p>
       <div className="mt-8">
         <div>{JSON.stringify(homes)} </div>
