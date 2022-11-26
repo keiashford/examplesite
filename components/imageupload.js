@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
-
+import { decode } from 'base64-arraybuffer';
 
 const ImageUpload = ({
   label = 'Image',
