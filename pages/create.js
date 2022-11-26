@@ -1,5 +1,5 @@
 import axios from 'axios';
-import ImageUpload from '../components/ImageUpload';
+import ImageUpload from '../components/imageupload';
 import { toast } from 'react-hot-toast';
 const Create = () => {
     
