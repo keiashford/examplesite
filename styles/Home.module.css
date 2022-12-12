@@ -2,6 +2,21 @@
   padding: 0 2rem;
 }
 
+.uploadedImage{
+  width:200px;
+  height:200px;
+}
+
+.verticalflex
+{display:flex;
+flex-direction: column;
+}
+.horizontalflex
+{display:flex;
+flex-direction: row;
+}
+
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;

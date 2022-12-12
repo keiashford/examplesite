@@ -15,18 +15,21 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     // TODO
     let { image } = req.body;
-
+console.log("is there an image?");
     if (!image) {
-        return res.status(500).json({ message: 'No image provided' });
+      console.log("no image");
+        return res.send({ message: 'No image provided' });
     }
 
     try{
+    //  console.log("trying image upload");
     const contentType = image.match(/data:(.*);base64/)?.[1];
     const base64FileData = image.split('base64,')?.[1];
-
+    //console.log("is it valid image");
     if (!contentType || !base64FileData) {
-    return res.status(500).json({ message: 'Image data not valid' });
+    return res.send({ message: 'Image data not valid' });
     }
+    //console.log("image is valid");
     const ext = contentType.split('/')[1];
     const path = `${fileName}.${ext}`;
     const { data, error: uploadError } = await supabase.storage
@@ -35,19 +38,23 @@ export default async function handler(req, res) {
       contentType,
       upsert: true,
     });
+   // console.log("supabase data returned"+JSON.stringify(data));
     if (uploadError) {
         throw new Error('Unable to upload image to storage');
         }  
     // Construct public URL
       const url = `${process.env.SUPABASE_URL.replace(
         '.co',
-        '.in'
-      )}/storage/v1/object/public/${data.Key}`;
-  
+        '.co'
+      )}/storage/v1/object/public/keefssite/${data.path}`;
+ 
       return res.status(200).json({ url });
     }
     catch(e){
-        res.status(500).json({ message: 'Something went wrong' });
+      console.log("there was an eror uploading");
+      console.log(e.message);
+      console.log(e.name);
+        res.send(e.message);
     }
   }
   // HTTP method not supported!

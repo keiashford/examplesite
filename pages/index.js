@@ -13,6 +13,19 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ homes = [] }) {
+  var rendered_homes=[];
+  
+  homes.forEach((x, i) =>(
+
+   rendered_homes.push(
+   <div>
+    <h2>image src {x.image}</h2>
+   <h1>{x.beds}</h1><img src={x.image}></img>
+   {JSON.stringify(x)}
+   </div>
+   )
+   ))
+
 
   return (
    
@@ -27,8 +40,8 @@ export default function Home({ homes = [] }) {
         Explore some of the best places in the world man
       </p>
       <div className="mt-8">
-        <div>{JSON.stringify(homes)} </div>
-      </div>
+       {rendered_homes}
+        </div>
       </div>    
   );
 }
