@@ -12,33 +12,36 @@ const supabase = createClient(
 
 export default async function handler(req, res) {
   // Upload image to Supabase
+  console.log("is there an image?-1");
   if (req.method === 'POST') {
     // TODO
+    console.log("is there an image?1");
     let { image } = req.body;
-console.log("is there an image?");
+console.log("is there an image?2");
     if (!image) {
       console.log("no image");
         return res.send({ message: 'No image provided' });
     }
 
     try{
-    //  console.log("trying image upload");
+      console.log("trying image upload");
     const contentType = image.match(/data:(.*);base64/)?.[1];
     const base64FileData = image.split('base64,')?.[1];
-    //console.log("is it valid image");
+    console.log("is it valid image");
     if (!contentType || !base64FileData) {
     return res.send({ message: 'Image data not valid' });
     }
-    //console.log("image is valid");
+    console.log("image is valid");
     const ext = contentType.split('/')[1];
     const path = `${fileName}.${ext}`;
+    console.log("image path "+path);
     const { data, error: uploadError } = await supabase.storage
     .from(process.env.SUPABASE_BUCKET)
     .upload(path, decode(base64FileData), {
       contentType,
       upsert: true,
     });
-   // console.log("supabase data returned"+JSON.stringify(data));
+    console.log("supabase data returned"+JSON.stringify(data));
     if (uploadError) {
         throw new Error('Unable to upload image to storage');
         }  

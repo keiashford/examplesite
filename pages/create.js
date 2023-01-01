@@ -19,9 +19,10 @@ const Create = () => {
     return img_path;
   }
 
-  const initialValues = null;
+const initialValues = null;
 var rawImageData=null;
-  async function prepareUpload(image)
+  
+async function prepareUpload(image)
 {
 rawImageData=image;
 
@@ -32,7 +33,7 @@ rawImageData=image;
         {
         console.log("no image!");
         
-            return;
+            return true;
           }
         let toastId;
         try {
@@ -40,20 +41,35 @@ rawImageData=image;
           //  setDisabled(true);
            // toastId = toast.loading('Uploading...');
             console.log("awaiting");
-          
+          //try{
             const { data } = await axios.post('/api/imageupload', { image });
-            console.log(" awaiting done");
-            console.log("success uploading "+JSON.stringify(data));
+          //}
+         /* catch(e)
+          {
+            console.log(e);
+          console.log(e.response.data);
+          
+          
+          }*/
+          console.log(" awaiting done");
+          console.log("success uploading "+JSON.stringify(data));
 
-            
-            setImageUrl(data?.url);
-            console.log("success uploading "+data.url);
-            toast.success('Successfully uploaded', { id: toastId });
+          
+          setImageUrl(data?.url);
+          console.log("success uploading "+data.url);
+          toast.success('Successfully uploaded', { id: toastId });
+           return true;
         } catch (e) {
             toast.error('Unable to upload', { id: toastId });
-            setImageUrl('');
-        } finally {
-          //  setDisabled(false);
+            if (e.response.data.includes("Body exceeded"))
+          {
+
+            alert("image is bigger than 1mb please choose a smaller image");
+          }
+            //setImageUrl('');
+        return false;
+          } finally {
+         
         }
     }
 
@@ -97,14 +113,17 @@ function changeDesc(e)
 
      async function addHome() 
   {
-    await upload(rawImageData);
-    console.log(img_path);
+    var result=await upload(rawImageData);
+    console.log("img path"+img_path);
+    console.log("result "+result);
     inputs.image=img_path;
-    
+    if(result==true)
+    {
     await axios.post('/api/homes', inputs);
     window.location.href = '/';
     console.log("pushed");
-            // code below is unchanged
+  }
+    // code below is unchanged
             //...
   };
   
