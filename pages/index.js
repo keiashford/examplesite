@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import displayHome from '../components/displayHome';
 const prisma = new PrismaClient();
 
 export async function getServerSideProps() {
@@ -18,11 +19,7 @@ export default function Home({ homes = [] }) {
   homes.forEach((x, i) =>(
 
    rendered_homes.push(
-   <div>
-    <h2>image src {x.image}</h2>
-   <h1>{x.beds}</h1><img src={x.image}></img>
-   {JSON.stringify(x)}
-   </div>
+   new displayHome(x)
    )
    ))
 
