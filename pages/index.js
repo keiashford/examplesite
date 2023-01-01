@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import displayHome from '../components/displayHome';
+import DisplayHome from '../components/displayHome';
+
 const prisma = new PrismaClient();
 
 export async function getServerSideProps() {
@@ -19,25 +20,33 @@ export default function Home({ homes = [] }) {
   homes.forEach((x, i) =>(
 
    rendered_homes.push(
-   new displayHome(x)
+  // new displayHome(x)
    )
    ))
 
 
   return (
    
-    <div>
+    
        
        
-  
-      <h1 className="text-xl font-medium text-gray-800">
+  <div>
+      <h1>
         Top-rated places to stay
       </h1>
-      <p className="he">
-        Explore some of the best places in the world man
+      <p>
+        Explore some of the best places in the world 
+      
       </p>
-      <div className="mt-8">
-       {rendered_homes}
+      <p>Example site by: Keith Ashford</p>
+      <a className="greenbutton" href="/create">Create new listing</a>
+      <div className='homepageFlex'>
+       
+         {homes.map((h) => { 
+          
+           return <DisplayHome key={h.id} {...h}  />;
+        })}
+       
         </div>
       </div>    
   );

@@ -1,4 +1,45 @@
 .homepageFlex
 {
     flex-direction: row;
+    display:flex;
+    width:100%;
+    flex-wrap:wrap;
 }
+.proportionedImage {
+    width:200px;
+   
+  }
+  .verticalflex
+{display:flex;
+flex-direction: column;
+}
+  .proportionedImageContainer {
+    width:200px;
+   height:200px;
+  }
+  .homeDisplayFlex
+  {
+    display:flex;
+    overflow:auto;
+    padding:3px;
+    width:200px;
+  }
+  .boldText
+  {font-weight: bold;}
+  .greenbutton{
+    background-color: green;
+    border-radius: 5px;
+    padding: 3px;
+    cursor: pointer;
+    
+    color: white;
+  }
+  .redbutton{
+    background-color: red;
+    border-radius: 5px;
+    padding: 3px;
+    cursor: pointer;
+    color: white;
+    
+
+  }

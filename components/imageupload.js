@@ -43,6 +43,8 @@ const ImageUpload = ({
     );
 
     if (file) {
+      console.log("found a image file");
+      console.log("file size "+file.size+" sizelimit"+sizeLimit);
       if (file.size <= sizeLimit) {
         setUpdatingPicture(true);
         setPictureError('');
@@ -63,10 +65,7 @@ const ImageUpload = ({
     <div className="verticalflex">
       <label >{label}</label>
 
-      <button
-        disabled={updatingPicture}
-        onClick={handleOnClickPicture}
-          >
+      
         {image.src  &&
           <img
             src={image.src}
@@ -95,7 +94,7 @@ const ImageUpload = ({
             className="hidden"
           />
         </div>
-      </button>
+      
 
       {pictureError ? (
         <span className="text-red-600 text-sm">{pictureError}</span>

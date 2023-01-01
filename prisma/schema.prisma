@@ -21,4 +21,5 @@ model Home {
   baths       Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  deleted     Boolean
 }

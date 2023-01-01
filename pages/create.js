@@ -1,21 +1,31 @@
 import axios from 'axios';
 import ImageUpload from '../components/imageupload';
 import { toast } from 'react-hot-toast';
+import {useState} from 'react';
+import React from 'react';
+import {setValues} from 'react';
 
 const Create = () => {
-    let img_path;
+
+  let img_path;
+
   function setImageUrl(path)
   {
     img_path=path;
-
   }
+
   function getImageUrl()
   {
-
     return img_path;
   }
-    const initialValues = null;
 
+  const initialValues = null;
+var rawImageData=null;
+  async function prepareUpload(image)
+{
+rawImageData=image;
+
+}
         async function upload(image) {
           //console.log("uploadfunction"+JSON.stringify(image));
         if (!image)
@@ -43,33 +53,61 @@ const Create = () => {
             toast.error('Unable to upload', { id: toastId });
             setImageUrl('');
         } finally {
-            setDisabled(false);
+          //  setDisabled(false);
         }
     }
 
-    
-  function addHome(img) 
-  {
+      const [inputs, setInputs] = useState({
+      image:"",
+    title:"your title",
+    description:"desc",
+    price:23,
+    guests:2,
+    beds:6,
+    baths:12,
 
-    const data={
-        image:img_path,
-        title:"trev",
-        description:"desc",
-        price:23,
-        guests:2,
-        beds:6,
-        baths:2,
-        };
-        console.log("img"+img);
-        console.log("initialValues"+JSON.stringify(data));
-           axios.post('/api/homes', data);
-              console.log("pushed");
+    }
+    );    
+    function changeBeds(e)
+    {
+  setInputs({ ...inputs, beds: parseInt(e.target.value)})
+  }  
+  function changeGuests(e)
+  {
+setInputs({ ...inputs, guests: parseInt(e.target.value)})
+}  
+function changeBaths(e)
+{
+setInputs({ ...inputs, baths: parseInt(e.target.value)})
+}  
+function changePrice(e)
+{
+setInputs({ ...inputs, price: parseInt(e.target.value)})
+}  
+function changeDesc(e)
+    {
+  setInputs({ ...inputs, description: e.target.value})
+  }  
+    
+   
+    function changeTitle(e)
+    { 
+      setInputs({ ...inputs, title: e.target.value})
+    }
+
+     async function addHome() 
+  {
+    await upload(rawImageData);
+    console.log(img_path);
+    inputs.image=img_path;
+    
+    await axios.post('/api/homes', inputs);
+    window.location.href = '/';
+    console.log("pushed");
             // code below is unchanged
             //...
-           
-
   };
-  console.log("hello");
+  
   
   const { image, ...initialFormValues } = initialValues ?? {
     image: '',
@@ -90,17 +128,34 @@ const Create = () => {
         </p>
         
         
+  <div>Title:{inputs.title}</div>
+  <input  name="title" type="text"  onChange={changeTitle}/>
+
+    Beds:{inputs.beds}
+    <input name="beds" type="text"  onChange={changeBeds} />
+    Guests:{inputs.guests}
+    <input name="guests" type="text"  onChange={changeGuests} />
+    Baths:{inputs.baths}
+    <input name="baths" type="text"  onChange={changeBaths} />
+    Description:{inputs.description}
+    <input name="description" type="text"  onChange={changeDesc} />
+    Price:{inputs.price}
+    <input name="price" type="text"  onChange={changePrice} />
+
+  
+
         <button
-            type="submit"
-            onClick={() => addHome(image)}
+          
+            onClick={() => addHome()}
           >
             add home
             </button>
             
             <ImageUpload
           initialImage={{ src: image, alt: initialFormValues.title }}
-          onChangePicture={upload}
+         onChangePicture={prepareUpload}
         />
+       
 
         
         
