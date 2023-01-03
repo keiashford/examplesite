@@ -15,7 +15,8 @@ flex-direction: column;
 }
   .proportionedImageContainer {
     width:200px;
-   height:200px;
+   height:300px;
+   overflow: scroll;
   }
   .homeDisplayFlex
   {
