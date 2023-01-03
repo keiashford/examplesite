@@ -76,18 +76,7 @@ function DisplayHome(props){
    </div>)
 
 
-function changeBeds(e)
-{
-setInputs({ ...inputs, beds: parseInt(e.target.value)})
-}  
-function changeGuests(e)
-{
-setInputs({ ...inputs, guests: parseInt(e.target.value)})
-}  
-function changeBaths(e)
-{
-setInputs({ ...inputs, baths: parseInt(e.target.value)})
-}  
+
 async function changeIntValue(e)
 {
     var thisVal=0;
@@ -106,15 +95,7 @@ async function changeStringValue(e)
 
 }
 
-function changePrice(e)
-{
-setInputs({ ...inputs, price: parseInt(e.target.value)})
-}  
-async function changeDesc(e)
-{
-setInputs({ ...inputs, description: e.target.value})
-const { data } =await axios.put('/api/homes', {action:'update',theid:props.id,stat:'description',statvalue:e.target.value });
-}  
+
 async function deleteThis(e)
 {
     changedVisible(false);
