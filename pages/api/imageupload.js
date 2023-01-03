@@ -68,3 +68,11 @@ console.log("is there an image?2");
       .json({ message: `HTTP method ${req.method} is not supported.` });
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
