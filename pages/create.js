@@ -41,16 +41,11 @@ rawImageData=image;
           //  setDisabled(true);
            // toastId = toast.loading('Uploading...');
             console.log("awaiting");
-          //try{
-            const { data } = await axios.post('/api/imageupload', { image });
-          //}
-         /* catch(e)
-          {
-            console.log(e);
-          console.log(e.response.data);
           
+            const { data } = await axios.post('/api/imageupload', { image }).catch(console.log(console.error));
           
-          }*/
+        
+            
           console.log(" awaiting done");
           console.log("success uploading "+JSON.stringify(data));
 
@@ -59,13 +54,12 @@ rawImageData=image;
           console.log("success uploading "+data.url);
           toast.success('Successfully uploaded', { id: toastId });
            return true;
-        } catch (e) {
-            toast.error('Unable to upload', { id: toastId });
-            if (e.response.data.includes("Body exceeded"))
-          {
+          
+          
 
-            alert("image is bigger than 1mb please choose a smaller image");
-          }
+          } catch (e) {
+           // toast.error('Unable to upload', { id: toastId });
+           console.log(e)
             //setImageUrl('');
         return false;
           } finally {
